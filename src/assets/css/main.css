@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+}
+body{
+    background-image: url('@/assets/images/spikes.webp');
+}
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: #e5e5e5;
+ }
+ 
+ ::-webkit-scrollbar-thumb {
+    background-color: #ffe711;
+    border-radius: 2px;
+    height: 4px;
+ }

@@ -1,0 +1,65 @@
+.header{
+    width: 100%;
+    height: 69.6px;
+    background-color: #003a61;
+}
+.header-content{
+    width: 100%;
+    height: 100%;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    align-items: center;
+}
+.logo{
+    width: 90px;
+    height: 32px;
+    background-image: url('@/assets/images/logo_wide.webp');
+    background-size: 90px 32px;
+}
+.right-nav{
+    display: flex;
+}
+.nav-item a{
+    text-decoration: none;
+    display: flex;
+    padding: 8px 0px;
+    align-items: center;
+}
+.nav-point{
+    color: #ffe711;
+}
+.nav-item{
+    color: hsla(0,0%,100%,.5);
+    border: 1px solid #eaa212;
+    margin-right: 2px;
+    padding: 2px 5px 2px 5px;
+    border-radius: 5px;
+}
+.ticket{
+    width: 24px;
+    height: 24px;
+    background-image: url('@/assets/images/ticket.d2d1e503.webp');
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    vertical-align: center;
+    margin-top: 6px;
+}
+.star{
+    width: 24px;
+    height: 24px;
+    background-image: url('@/assets/images/star.97aea40d.webp');
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    vertical-align: center;
+    margin-top: 6px;
+}
+.rank{
+    width: 32px;
+    height: 32px;
+    background-image: url('@/assets/images/leaderboard.15d560d6.webp');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    vertical-align: center;
+}
