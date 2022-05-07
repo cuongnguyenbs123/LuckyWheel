@@ -2,7 +2,6 @@
     <div class="container">
         <the-header/>
         <router-view></router-view>
-     
     </div>
 </template>
 <script>

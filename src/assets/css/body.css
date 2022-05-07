@@ -44,6 +44,7 @@ h3{
     height: 480px;
     width: 100%;
     margin-top: 3rem;
+    box-sizing: border-box;
 }
 .rotary{
     max-width: 480px;
@@ -55,4 +56,30 @@ h3{
     max-width: 480px;
     position: absolute;
     vertical-align: middle;
+}
+h5{
+    color:rgb(255, 212, 0);
+    font-size: 20px;
+    /* justify-content: center; */
+}
+.wheel-history{
+    position: absolute;
+    top: 200px;
+    right: 100px;
+    width: 200px;
+    border: 1px solid rgb(6, 202, 62);
+    border-bottom: none;
+    border-radius: 5px;
+}
+.history-content{
+    width: 100%;
+    min-height: 100px;
+    max-height: 300px;
+    border-bottom: 1px solid rgb(6, 202, 62);
+    border-top: 1px solid rgb(6, 202, 62);
+}
+.content{
+    color: rgb(255, 212, 0);
+    font-size: 16px;
+    padding: 5px 20px;
 }
