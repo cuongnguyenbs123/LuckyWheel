@@ -60,31 +60,39 @@ export default {
     name: "HomeView",
     components: { TheStickyRow },
     created() {
-        axios.get("https://localhost:7135/api/Home").then((response) => {
-            this.prizeListOrigin = response.data;
-            var prize0 = this.prizeListOrigin[0];
-            var lastprize =
-                this.prizeListOrigin[this.prizeListOrigin.length - 1];
-            this.prizeListOrigin.forEach((element) => {
-                if (element.name != "P.Codes") {
-                    this.chosenPrizeList.push(prize0);
-                    this.chosenPrizeList.push(element);
-                } else if (
-                    element.name == lastprize.name &&
-                    element == "P.Codes"
-                )
-                    this.chosenPrizeList.push(element);
-            });
+        /*Fetch API*/ 
+        // axios.get("https://localhost:7135/api/Home").then((response) => {
+        //     this.prizeListOrigin = response.data;
+        //     var prize0 = this.prizeListOrigin[0];
+        //     var lastprize =
+        //         this.prizeListOrigin[this.prizeListOrigin.length - 1];
+        //     this.prizeListOrigin.forEach((element) => {
+        //         if (element.name != "P.Codes") {
+        //             this.chosenPrizeList.push(prize0);
+        //             this.chosenPrizeList.push(element);
+        //         } else if (
+        //             element.name == lastprize.name &&
+        //             element == "P.Codes"
+        //         )
+        //             this.chosenPrizeList.push(element);
+        //     });
+        // });
+        var prize0 = this.prizeListOrigin[0];
+        var lastprize = this.prizeListOrigin[this.prizeListOrigin.length - 1];
+        this.prizeListOrigin.forEach((element) => {
+            if (element.name != "P.Codes") {
+                this.chosenPrizeList.push(prize0);
+                this.chosenPrizeList.push(element);
+            } else if (element.name == lastprize.name && element == "P.Codes")
+                this.chosenPrizeList.push(element);
         });
+        console.log(this.chosenPrizeList)
     },
     methods: {
         Onrolling() {
             if (this.lives > 0) {
                 if (this.rolling) return;
                 else {
-                    //      const result = Math.floor(
-                    //     Math.random() * this.chosenPrizeList.length
-                    // );
                     const result = Math.random() * 100;
                     this.lives--;
                     this.roll(result);
@@ -100,16 +108,14 @@ export default {
             var i = 0;
             start: while (true) {
                 if (result < tempList[i].percent + currentPercent) {
-                    // position = this.chosenPrizeList.indexOf(tempList[i])
                     var array = [];
-                    var pointer = this
-                    for (var x = 0; x <this.chosenPrizeList.length; x++) {
+                    for (var x = 0; x < this.chosenPrizeList.length; x++) {
                         if (this.chosenPrizeList[x].name == tempList[i].name) {
                             array.push(x);
                         }
                     }
-                    console.log(array)
-                    position = array[Math.floor(Math.random()*array.length)]
+                    console.log(array);
+                    position = array[Math.floor(Math.random() * array.length)];
                     this.wheelDeg =
                         this.wheelDeg -
                         (this.wheelDeg % 360) +
@@ -124,7 +130,6 @@ export default {
             }
             console.log(position);
             this.rolling = true;
-            // this.wheelDeg =this.wheelDeg - (this.wheelDeg % 360) +6 * 360 +(360 / this.chosenPrizeList.length) * result;
             setTimeout(() => {
                 this.rolling = false;
 
@@ -144,78 +149,54 @@ export default {
             lives: 3,
             prizeHistory: [],
             prizeListOrigin: [
-                // {
-                //    name: "P.Code",
-                //      percent: 20/360*100,
-                // },
-                // {
-                //     name: "20$",
-                //     percent: 20/360*100,
-                // },
-                // {
-                //     name: "P.Code",
-                //      percent: 20/360*100,
-                // },
-                // {
-                //     name: "XiaoMi",
-                //      percent: 20/360*100,
-                // },
-                // {
-                //     name: "P.Code",
-                //       percent: 20/360*100,
-                // },
-                // {
-                //     name: "SJC",
-                //      percent: 20/360*100,
-                // },
-                // {
-                //     name: "P.Code",
-                //       percent: 20/360*100,
-                // },
-                //   {
-                //     name: "SamSung Note 20",
-                //       percent: 20/360*100,
-                // },
-                //   {
-                //     name: "P.Code",
-                //      percent: 20/360*100,
-                // },
-                //   {
-                //     name: "10$",
-                //      percent: 20/360*100,
-                // },
-                //   {
-                //     name: "P.Codes",
-                //      percent: 20/360*100,
-                // },
-                //   {
-                //     name: "5$",
-                //      percent: 20/360*100,
-                // },
-                //   {
-                //     name: "P.Code",
-                //      percent: 20/360*100,
-                // },
-                //   {
-                //     name: "2$",
-                //      percent: 20/360*100,
-                // },
-                //   {
-                //     name: "P.Code",
-                //       percent: 20/360*100,
-                // },
-                //   {
-                //     name: "1$",
-                //      percent: 20/360*100,
-                // },
-                //   {
-                //     name: "P.Code",
-                //      percent: 20/360*100,
-                // },
-                //   {
-                //     name: "5$",
-                //     percent: 20/360*100,
-                // },
+                {
+                    name: "P.Codes",
+                    percent: 50,
+                },
+                {
+                    name: "20$",
+                    percent: 0.05,
+                },
+
+                {
+                    name: "XiaoMi",
+                    percent: 0.15,
+                },
+
+                {
+                    name: "SJC",
+                    percent: 3,
+                },
+
+                {
+                    name: "SamSung Note 20",
+                    percent: 1,
+                },
+
+                {
+                    name: "10$",
+                    percent: 0.5,
+                },
+
+                {
+                    name: "5$",
+                    percent: 0.3,
+                },
+
+                {
+                    name: "2$",
+                    percent: 5,
+                },
+
+                {
+                    name: "1$",
+                    percent: 15,
+                },
+
+                {
+                    name: "0.5$",
+                    percent: 20,
+                },
             ],
         };
     },

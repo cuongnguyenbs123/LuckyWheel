@@ -60,7 +60,7 @@ h3{
 h5{
     color:rgb(255, 212, 0);
     font-size: 20px;
-    /* justify-content: center; */
+    text-align: center;
 }
 .wheel-history{
     position: absolute;
