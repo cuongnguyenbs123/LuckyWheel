@@ -60,74 +60,91 @@ export default {
     name: "HomeView",
     components: { TheStickyRow },
     created() {
-        /*Fetch API*/ 
-        // axios.get("https://localhost:7135/api/Home").then((response) => {
-        //     this.prizeListOrigin = response.data;
-        //     var prize0 = this.prizeListOrigin[0];
-        //     var lastprize =
-        //         this.prizeListOrigin[this.prizeListOrigin.length - 1];
-        //     this.prizeListOrigin.forEach((element) => {
-        //         if (element.name != "P.Codes") {
-        //             this.chosenPrizeList.push(prize0);
-        //             this.chosenPrizeList.push(element);
-        //         } else if (
-        //             element.name == lastprize.name &&
-        //             element == "P.Codes"
-        //         )
-        //             this.chosenPrizeList.push(element);
-        //     });
-        // });
-        var prize0 = this.prizeListOrigin[0];
-        var lastprize = this.prizeListOrigin[this.prizeListOrigin.length - 1];
-        this.prizeListOrigin.forEach((element) => {
-            if (element.name != "P.Codes") {
-                this.chosenPrizeList.push(prize0);
-                this.chosenPrizeList.push(element);
-            } else if (element.name == lastprize.name && element == "P.Codes")
-                this.chosenPrizeList.push(element);
+        /*Fetch API*/
+        axios.get("https://localhost:7135/api/Home").then((response) => {
+            this.prizeListOrigin = response.data;
+            var prize0 = this.prizeListOrigin[0];
+            var lastprize =
+                this.prizeListOrigin[this.prizeListOrigin.length - 1];
+            this.prizeListOrigin.forEach((element) => {
+                if (element.name != "P.Codes") {
+                    this.chosenPrizeList.push(prize0);
+                    this.chosenPrizeList.push(element);
+                } else if (
+                    element.name == lastprize.name &&
+                    element == "P.Codes"
+                )
+                    this.chosenPrizeList.push(element);
+            });
         });
-        console.log(this.chosenPrizeList)
+        // var prize0 = this.prizeListOrigin[0];
+        // var lastprize = this.prizeListOrigin[this.prizeListOrigin.length - 1];
+        // this.prizeListOrigin.forEach((element) => {
+        //     if (element.name != "P.Codes") {
+        //         this.chosenPrizeList.push(prize0);
+        //         this.chosenPrizeList.push(element);
+        //     } else if (element.name == lastprize.name && element == "P.Codes")
+        //         this.chosenPrizeList.push(element);
+        // });
+        // console.log(this.chosenPrizeList);
     },
     methods: {
-        Onrolling() {
+         Onrolling() {
             if (this.lives > 0) {
                 if (this.rolling) return;
                 else {
-                    const result = Math.random() * 100;
+                    // const result = Math.random() * 100;
                     this.lives--;
-                    this.roll(result);
+                    axios
+                        .get("https://localhost:7135/api/Home/yourprize")
+                        .then((result) => {
+                            console.log(result.data)
+                            this.roll(result.data);
+                        });
                 }
             } else this.$swal("Bạn đã hết lượt quay rồi");
         },
         roll(result) {
-            var tempList = this.prizeListOrigin.sort((a, b) => {
-                return a.percent - b.percent;
-            });
+            // var tempList = this.prizeListOrigin.sort((a, b) => {
+            //     return a.percent - b.percent;
+            // });
             var position = 0;
-            var currentPercent = 0;
-            var i = 0;
-            start: while (true) {
-                if (result < tempList[i].percent + currentPercent) {
-                    var array = [];
-                    for (var x = 0; x < this.chosenPrizeList.length; x++) {
-                        if (this.chosenPrizeList[x].name == tempList[i].name) {
-                            array.push(x);
-                        }
-                    }
-                    console.log(array);
-                    position = array[Math.floor(Math.random() * array.length)];
-                    this.wheelDeg =
-                        this.wheelDeg -
-                        (this.wheelDeg % 360) +
-                        6 * 360 +
-                        (360 / this.chosenPrizeList.length) * position;
-                    break;
-                } else {
-                    currentPercent += tempList[i].percent;
-                    i++;
-                    continue start;
+            var array = [];
+            for (var x = 0; x < this.chosenPrizeList.length; x++) {
+                if (this.chosenPrizeList[x].name == result.name) {
+                    array.push(x);
                 }
             }
+            console.log(array.length)
+            position = array[Math.floor(Math.random() * array.length)];
+            this.wheelDeg =
+                this.wheelDeg -
+                (this.wheelDeg % 360) +
+                6 * 360 +
+                (360 / this.chosenPrizeList.length) * position;
+            // var currentPercent = 0;
+            // var i = 0;
+            // while (true) {
+            //     if (result < tempList[i].percent + currentPercent) {
+            //         var array = [];
+            //         for (var x = 0; x < this.chosenPrizeList.length; x++) {
+            //             if (this.chosenPrizeList[x].name == tempList[i].name) {
+            //                 array.push(x);
+            //             }
+            //         }
+            //         console.log(array);
+            //         position = array[Math.floor(Math.random() * array.length)];
+            //         this.wheelDeg =
+            //             this.wheelDeg -
+            //             (this.wheelDeg % 360) +
+            //             6 * 360 +
+            //             (360 / this.chosenPrizeList.length) * position;
+            //         break;
+            //     } else {
+            //         currentPercent += tempList[i].percent;
+            //         i++;
+            //     }
+            // }
             console.log(position);
             this.rolling = true;
             setTimeout(() => {
@@ -149,54 +166,46 @@ export default {
             lives: 3,
             prizeHistory: [],
             prizeListOrigin: [
-                {
-                    name: "P.Codes",
-                    percent: 50,
-                },
-                {
-                    name: "20$",
-                    percent: 0.05,
-                },
-
-                {
-                    name: "XiaoMi",
-                    percent: 0.15,
-                },
-
-                {
-                    name: "SJC",
-                    percent: 3,
-                },
-
-                {
-                    name: "SamSung Note 20",
-                    percent: 1,
-                },
-
-                {
-                    name: "10$",
-                    percent: 0.5,
-                },
-
-                {
-                    name: "5$",
-                    percent: 0.3,
-                },
-
-                {
-                    name: "2$",
-                    percent: 5,
-                },
-
-                {
-                    name: "1$",
-                    percent: 15,
-                },
-
-                {
-                    name: "0.5$",
-                    percent: 20,
-                },
+                // {
+                //     name: "P.Codes",
+                //     percent: 50,
+                // },
+                // {
+                //     name: "20$",
+                //     percent: 0.05,
+                // },
+                // {
+                //     name: "XiaoMi",
+                //     percent: 0.15,
+                // },
+                // {
+                //     name: "SJC",
+                //     percent: 3,
+                // },
+                // {
+                //     name: "SamSung Note 20",
+                //     percent: 1,
+                // },
+                // {
+                //     name: "10$",
+                //     percent: 0.5,
+                // },
+                // {
+                //     name: "5$",
+                //     percent: 0.3,
+                // },
+                // {
+                //     name: "2$",
+                //     percent: 5,
+                // },
+                // {
+                //     name: "1$",
+                //     percent: 15,
+                // },
+                // {
+                //     name: "0.5$",
+                //     percent: 20,
+                // },
             ],
         };
     },
